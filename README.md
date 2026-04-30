@@ -36,6 +36,8 @@ This Git repository describes the processing from the French Census data, descri
 
 For each link, the data from Zone A corresponding to Île de France should be downloaded in format csv, when possible, or txt. Then, the datasets should be set in the corresponding folder in Data/Raw_census_data_YEAR.
 
+To align the geographical attributes, some other datasets are used and directly available in Data/Geo. They can also be found online on the website from INSEE.
+
 ## Variables 
 
 Here is the list of the variables (some were deleted from the one year case).
