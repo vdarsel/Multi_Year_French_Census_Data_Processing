@@ -5,7 +5,7 @@ import numpy as np
 change_name = {
     "Le Chesnay": "Le Chesnay-Rocquencourt",
     "Rocquencourt": "Le Chesnay-Rocquencourt",
-    "Courcouronn es": "Évry-Courcouronnes",
+    "Courcouronnes": "Évry-Courcouronnes",
     "Évry": "Évry-Courcouronnes",
     "Saint-Ouen-sur-Seine": "Saint-Ouen",
     "Meulan-en-Yvelines": "Meulan",
