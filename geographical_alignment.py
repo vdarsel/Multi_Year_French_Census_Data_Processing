@@ -74,6 +74,7 @@ def get_geo_file_year(year):
     data = pd.read_excel(f"{folder_geo}/{filename_geo}",header=4,skiprows=[5])
     data.rename(columns=change_col, inplace=True)
     data = data[["Commune","Commune code","Canton","Department"]]
+    data["Commune"] = data["Commune"].replace(change_name)
     return data
 
 def get_dictionnary_for_commune_translation(geo_ref, geo_data):
