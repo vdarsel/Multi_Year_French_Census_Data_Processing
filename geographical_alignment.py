@@ -39,21 +39,25 @@ change_name = {
 }
 
 change_col={
-    "Department commune":"Commune code",
-    "Department - commune":"Commune code",
+    "Département commune":"Commune code",
+    "Département - commune":"Commune code",
     "Code géographique":"Commune code",
     "Libellé de commune":"Commune",
     "Libellé de la commune":"Commune",
     "Libellé géographique":"Commune",
-    "Canton-ou-ville":"Canton",
-    "Canton ville":"Canton",
+    "Canton-ou-ville":"County",
+    "Canton ville":"County",
+    "Département":"Department",
     }
 
 folder_geo = "Data/Geo"
 
 
 def get_folder_year(year):
-    return f"Rescencement_{year}"
+    return f"Data/Raw_census_data_{year}"
+
+def get_folder_generation_year(year):
+    return f"Generated_data/Census_data_{year}"
 
 def get_filename_geo_info_year(year):
     return f"table-appartenance-geo-communes-{str(year)[-2:]}.xls{"x" if year>2019 else ""}"
@@ -64,7 +68,7 @@ def get_data_file(year, filename):
     return data
 
 def get_reference_file_year(year):
-    folder = get_folder_year(year)
+    folder = get_folder_generation_year(year)
     data = pd.read_csv(f"{folder}/full_dataset_Individual.csv", sep=";", low_memory=False, usecols=["City","County"])
     return data
 
@@ -73,7 +77,7 @@ def get_geo_file_year(year):
     filename_geo = get_filename_geo_info_year(year_geo)
     data = pd.read_excel(f"{folder_geo}/{filename_geo}",header=4,skiprows=[5])
     data.rename(columns=change_col, inplace=True)
-    data = data[["Commune","Commune code","Canton","Department"]]
+    data = data[["Commune","Commune code","County","Department"]]
     data["Commune"] = data["Commune"].replace(change_name)
     return data
 
@@ -86,8 +90,8 @@ def get_dictionnary_for_commune_translation(geo_ref, geo_data):
 
 def get_dictionnary_for_commune_to_canton(geo_ref):
     translation = {}
-    for com_ref, canton_ref in zip(geo_ref["Commune code"],geo_ref["Canton"]):
-        translation[com_ref] = canton_ref
+    for com_ref, county_ref in zip(geo_ref["Commune code"],geo_ref["County"]):
+        translation[com_ref] = county_ref
     return translation
 
 def translation_for_Z_commune(geo_ref, geo_data, census_data, census_data_ref):
@@ -96,7 +100,7 @@ def translation_for_Z_commune(geo_ref, geo_data, census_data, census_data_ref):
     dataframe_geo_ref_year = pd.merge(geo_ref, geo_data, on=["Commune","Department"], suffixes=[" ref"," year"])
     county_to_explore_translation = census_data[census_data["City"].apply(lambda x: x[-1])=="Z"]["County"].unique()
     for county in county_to_explore_translation:
-        unique_origin_counties = dataframe_geo_ref_year[dataframe_geo_ref_year["Canton year"]==str(county)]["Canton ref"].unique()
+        unique_origin_counties = dataframe_geo_ref_year[dataframe_geo_ref_year["County year"]==str(county)]["County ref"].unique()
         assert(len(unique_origin_counties)>0)
         if len(unique_origin_counties)==1:
             new_county = unique_origin_counties[0]
