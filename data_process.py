@@ -25,7 +25,7 @@ split_sizes = [0.03*0.01,1*0.01]
 
 geo_attributes = ["Department", "County", "City"]
 
-
+target_year = 2021
 
 dir_data_import = "Data/Raw_census_data_XXXX"
 dir_data_save = "Generated_Data/Census_data_XXXX"
@@ -35,5 +35,5 @@ for year in range(2021,2006,-1):
     target_file_year = f"{dir_data_import}/{filename}".replace("XXXX",str(year))
     dir_save = dir_data_save.replace("XXXX",str(year))
     data_year = data_import_global(target_file_year, year)
-    process_data_datapaper_global(data_year, year, 2021, dir_save)
+    process_data_datapaper_global(data_year, year, target_year, dir_save)
     generation_split(dir_save)

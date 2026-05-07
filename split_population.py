@@ -272,7 +272,6 @@ def generation_split(dir):
         training_set = df_household[mask]
         testing_set = df_household[~mask]
         
-        training_set, testing_set = process_unseen_values_training_household(training_set, testing_set)
         
         df_household_group_by_equal_size_training = testing_set.groupby("HouseholdID")
         criteria_household_equal_size_training = [df_household_group_by_equal_size_training.size(),df_household_group_by_equal_size_training[geo_attribute_stratification].first()]
