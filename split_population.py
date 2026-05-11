@@ -228,7 +228,7 @@ def generation_split(dir):
         if not os.path.isdir(dir):
             os.makedirs(dir)
         training_set, testing_set = generate_balance_dataset_according_to_specific_categories(df_individual, criteria_individual, size)
-        training_set, testing_set = process_unseen_values_training_individual(training_set, testing_set)
+        # training_set, testing_set = process_unseen_values_training_individual(training_set, testing_set)
 
         # For W-DCR computation, we construct a set with same size and propreties, see for details: 
         # Darsel, V., Come, E., \& Oukhellou, L. (2025) Robust and Reproducible Evaluation Framework for Population Synthesis Models—Application to Probabilistic and Deep Generative Models. (https://dx.doi.org/10.2139/ssrn.5295092), _Pre-Print available at SSRN 5295092_.
