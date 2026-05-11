@@ -15,6 +15,7 @@ def data_import_global(target_file, year):
         decimal = ','
     else:
         decimal = '.'
+    print("\n\n")
     print(target_file)
     print("Loading data...")
     df = pd.read_csv("%s" % (target_file), sep=";",low_memory=False,decimal=decimal)
